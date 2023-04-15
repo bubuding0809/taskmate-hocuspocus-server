@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 
 const server = Server.configure({
   // Make the server available over https
-  port: 443,
+  port: 1234,
   debounce: 500,
   onStoreDocument: async ({ documentName, document }) => {
     // Extract the task id from the document name
