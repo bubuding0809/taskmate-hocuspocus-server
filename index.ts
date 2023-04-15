@@ -7,7 +7,6 @@ import StarterKit from "@tiptap/starter-kit";
 const prisma = new PrismaClient();
 
 const server = Server.configure({
-  port: 1234,
   debounce: 500,
   onStoreDocument: async ({ documentName, document }) => {
     // Extract the task id from the document name
