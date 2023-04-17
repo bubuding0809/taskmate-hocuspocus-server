@@ -3,6 +3,9 @@
 #certificate
 /certs/
 
+# distribution
+/dist/
+
 # dependencies
 /node_modules
 /.pnp
