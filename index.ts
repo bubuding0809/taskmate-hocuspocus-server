@@ -1,9 +1,4 @@
-import {
-  Server,
-  onDisconnectPayload,
-  onLoadDocumentPayload,
-  onStoreDocumentPayload,
-} from "@hocuspocus/server";
+import { Server } from "@hocuspocus/server";
 import { PrismaClient } from "@prisma/client";
 import { Doc } from "yjs";
 import { TiptapTransformer } from "@hocuspocus/transformer";
@@ -11,14 +6,27 @@ import StarterKit from "@tiptap/starter-kit";
 import { Logger } from "@hocuspocus/extension-logger";
 
 import type { User } from "@prisma/client";
+import type {
+  onDisconnectPayload,
+  onLoadDocumentPayload,
+  onStoreDocumentPayload,
+} from "@hocuspocus/server";
 
+// Initialize the Prisma client
 const prisma = new PrismaClient();
 
+// Configure the server
 const server = Server.configure({
   name: "taskmate-SG-1",
   port: 1234,
   debounce: 500,
-  extensions: [new Logger({})],
+  extensions: [
+    new Logger({
+      log: (...args) => {
+        console.log(...args);
+      },
+    }),
+  ],
 
   // Callback to handle authentication
   onAuthenticate: async ({ token }) => {
@@ -112,6 +120,7 @@ const server = Server.configure({
   },
 });
 
+// Start the server
 server.listen(async payload => {
   console.log("Server is listening on: ", payload.port);
 });
