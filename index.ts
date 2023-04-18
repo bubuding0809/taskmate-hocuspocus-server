@@ -11,8 +11,30 @@ const server = Server.configure({
   port: 1234,
   debounce: 500,
 
+  // Callback to handle authentication
+  onAuthenticate: async ({ token }) => {
+    console.log("Authenticating user: ", token);
+
+    // Validate the token
+    const user = await prisma.user.findUnique({
+      where: {
+        id: token,
+      },
+    });
+
+    // Return null if the user does not exist
+    if (!user) {
+      throw new Error("User does not exist, you are not allowed to connect");
+    }
+
+    // Return the user object
+    return user;
+  },
+
   // Callback to save the document to DB
-  onStoreDocument: async ({ documentName, document }) => {
+  onStoreDocument: async ({ documentName, document, context }) => {
+    console.log(context);
+
     // Extract the task id from the document name
     const taskId = documentName.split(".")[1];
 
@@ -30,7 +52,8 @@ const server = Server.configure({
   },
 
   // Callback to initialize the document by loading it from DB
-  onLoadDocument: async ({ documentName }) => {
+  onLoadDocument: async ({ documentName, context }) => {
+    console.log(context);
     // Extract the task id from the document name
     const taskId = documentName.split(".")[1];
 
@@ -53,12 +76,13 @@ const server = Server.configure({
   },
 
   // Callback to handle client connection to document
-  onConnect: async ({ documentName }) => {
+  onConnect: async ({ documentName, connection }) => {
     console.log("Client connected to document: ", documentName);
   },
 
   // Callback to handle client disconnection from document
-  onDisconnect: async ({ documentName }) => {
+  onDisconnect: async ({ documentName, context }) => {
+    console.log(context);
     console.log("Client disconnected from document: ", documentName);
   },
 });
