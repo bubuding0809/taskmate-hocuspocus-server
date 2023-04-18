@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client";
 import { Doc } from "yjs";
 import { TiptapTransformer } from "@hocuspocus/transformer";
 import StarterKit from "@tiptap/starter-kit";
-import { Logger } from "@hocuspocus/extension-logger";
 
 import type { User } from "@prisma/client";
 import type {
@@ -20,13 +19,6 @@ const server = Server.configure({
   name: "taskmate-SG-1",
   port: 1234,
   debounce: 500,
-  extensions: [
-    new Logger({
-      log: (...args) => {
-        console.log(...args);
-      },
-    }),
-  ],
 
   // Callback to handle authentication
   onAuthenticate: async ({ token }) => {
