@@ -8,6 +8,7 @@ import { PrismaClient } from "@prisma/client";
 import { Doc } from "yjs";
 import { TiptapTransformer } from "@hocuspocus/transformer";
 import StarterKit from "@tiptap/starter-kit";
+import { Logger } from "@hocuspocus/extension-logger";
 
 import type { User } from "@prisma/client";
 
@@ -16,6 +17,7 @@ const prisma = new PrismaClient();
 const server = Server.configure({
   port: 1234,
   debounce: 500,
+  extensions: [new Logger()],
 
   // Callback to handle authentication
   onAuthenticate: async ({ token }) => {

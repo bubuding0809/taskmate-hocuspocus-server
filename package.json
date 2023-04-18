@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@hocuspocus/extension-database": "^2.0.3",
+    "@hocuspocus/extension-logger": "^2.0.3",
     "@hocuspocus/server": "^2.0.3",
     "@hocuspocus/transformer": "^2.0.3",
     "@prisma/client": "^4.12.0",
