@@ -15,9 +15,10 @@ import type { User } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const server = Server.configure({
+  name: "taskmate-SG-1",
   port: 1234,
   debounce: 500,
-  extensions: [new Logger()],
+  extensions: [new Logger({})],
 
   // Callback to handle authentication
   onAuthenticate: async ({ token }) => {
