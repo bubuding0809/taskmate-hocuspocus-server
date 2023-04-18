@@ -10,6 +10,9 @@ import type {
   onLoadDocumentPayload,
   onStoreDocumentPayload,
 } from "@hocuspocus/server";
+import Color from "@tiptap/extension-color";
+import Highlight from "@tiptap/extension-highlight";
+import Placeholder from "@tiptap/extension-placeholder";
 
 // Initialize the Prisma client
 const prisma = new PrismaClient();
@@ -90,7 +93,12 @@ const server = Server.configure({
     console.log(`Document loaded from DB: ${documentName} by ${user.name}`);
 
     return task.task_description !== null
-      ? TiptapTransformer.toYdoc(task.task_description, "default", [StarterKit])
+      ? TiptapTransformer.toYdoc(task.task_description, "default", [
+          StarterKit,
+          Color,
+          Highlight,
+          Placeholder,
+        ])
       : new Doc();
   },
 
