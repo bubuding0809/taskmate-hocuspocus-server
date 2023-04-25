@@ -118,6 +118,10 @@ const server = Server.configure({
       `Client disconnected from document: ${documentName} by ${user.name}`
     );
   },
+
+  onChange: async ({ documentName, update }) => {
+    console.log("Document changed: ", documentName, update.length);
+  },
 });
 
 // Start the server
